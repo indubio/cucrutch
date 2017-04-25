@@ -1,0 +1,421 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="bootstrap.3.3.6.min.css">
+    <style type="text/css">
+      fieldset {
+        margin: 1em;
+      }
+      div.odd {
+        background-color: #DDDDDD;
+        border-radius: 10px;
+      }
+      div.even {
+        background-color: #BBBBBB;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+<body>
+
+<!--
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Unfallmeldung - Arztbericht</a>
+    </div>
+  </nav>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Unfallmeldung - Arztbericht</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">PDF erstellen</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+-->
+
+<div class="container">
+  <div class="page-header">
+    <h1>Unfallmeldung - Arztbericht</h1>
+  </div>
+  <form target="_blank" action="gen_pdf.php" method="post" id="cubus_unfall" name="cubus_unfall">
+<!-- Personendaten -->
+    <div class="even">
+      <fieldset>
+        <legend>Personendaten</legend>
+        <div class="form-group">
+          <label class="control-label" for="vers_name">Name</label>
+          <input class="form-control" id="vers_name" name="vers_name" placeholder="" type="text" />
+          <label class="control-label" for="vers_vorname">Vorname</label>
+          <input class="form-control" id="vers_vorname" name="vers_vorname" placeholder="" type="text" />
+          <label class="control-label" for="vers_gebdatum">Geburtsdatum</label>
+          <input class="form-control" id="vers_gebdatum" name="vers_gebdatum" placeholder="" type="text" />
+        </div>
+      </fieldset>
+    </div>
+<!-- UE Unfallereignis -->
+    <div class="odd">
+      <fieldset>
+        <legend>UE Unfallereignis</legend>
+        UE1<br />
+        <div class="form-group">
+          <label class="control-label" for="ue1">Datum & Uhrzeit</label>
+          <input class="form-control" id="ue1" name="ue1" /><br />
+        </div>
+        UE2<br />
+        <div class="form-group">
+          <label class="control-label" for="ue2_txt">Unfallursache/ -hergang</label>
+          <textarea class="form-control" id="ue2_txt" name="ue2_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        UE3<br />
+        <div class="form-group">
+          <label class="control-label" for="ue3_txt">Wer hat diese Angaben gemacht (Name und Anschrift)?</label>
+          <textarea class="form-control" id="ue3_txt" name="ue3_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        UE4<br />
+        <div class="form-group">
+          <label class="control-label" for="ue4_r">Berufsunfall?</label>
+          <div class="radio">
+            <label><input type="radio" name="ue4_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="ue4_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="ue4_r" value="unbekannt" />unbekannt</label>
+          </div>
+          <textarea class="form-control" id="ue4_txt" name="ue4_txt" cols="40" rows="5"></textarea><br />
+        </div>
+      </fieldset>
+    </div>
+<!-- EB Erstbefund -->
+    <div class="even">
+      <fieldset>
+        <legend>EB Erstbefund</legend>
+        EB1<br />
+        <div class="form-group">
+          <label class="control-label" for="eb1_txt">Subjektive Angaben über Schmerzen und Funktionsstörungen:</label>
+          <textarea class="form-control" id="eb1_txt" name="eb1_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        EB2<br />
+        <div class="form-group">
+          <label class="control-label" for="eb2_txt">Objektiver Befund der ersten Untersuchung durch Sie:</label>
+          <textarea class="form-control" id="eb2_txt" name="eb2_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        EB3<br />
+        <div class="form-group">
+          <label class="control-label" for="eb3_r">Lagen zum Zeitpunkt des Unfallereignisses Krankheiten und/ oder Gebrechen vor?</label><br />
+          (z.B. degenerative Veränderungen bzw. Folgen aus früheren Unfällen)<br />
+          <div class="radio">
+            <label><input type="radio" name="eb3_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb3_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb3_r" value="unbekannt" />unbekannt</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb3_txt">Welche? Seit wann?</label>
+          <textarea class="form-control" id="eb3_txt" name="eb3_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        EB4<br />
+        <div class="form-group">
+          <label class="control-label" for="eb4_r">Gibt es Anzeichen, das zum Zeitpunkt des Unfallereignisses bereits eine Pflegebedürftigkeit bestanden hat?</label>
+          <div class="radio">
+            <label><input type="radio" name="eb4_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb4_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb4_r" value="unbekannt" />unbekannt</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb4_txt">Welche?</label>
+          <textarea class="form-control" id="eb4_txt" name="eb4_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb4_ps_r">War zum Zeitpunkt des Unfalls bereits eine Pflegestufe anerkannt?</label>
+          <div class="radio">
+            <label><input type="radio" name="eb4_ps_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb4_ps_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb4_ps_r" value="unbekannt" />unbekannt</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb4_ps_txt">Pflegestufe</label>
+          <input class="form-control" id="eb4_ps_txt" name="eb4_ps_txt" />
+        </div>
+        EB5<br />
+        <div class="form-group">
+          <label class="control-label" for="eb5_r">Lagen Anzeichen von Alkohol-, Medikamenten- oder Rauschmitteleinfluss vor?</label>
+          <div class="radio">
+            <label><input type="radio" name="eb5_r" value="ja" />ja</label>
+          </diV>
+          <div class="radio">
+            <label><input type="radio" name="eb5_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb5_r" value="unbekannt" />unbekannt</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb5_txt">Welche Anzeichen / Ausfallerscheinungen wurden beobachtet?</label>
+          <textarea class="form-control" id="eb5_txt" name="eb5_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb5_blut_r">Wurde eine Blutprobe entnommen?</label>
+          <div class="radio">
+            <label><input type="radio" name="eb5_blut_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb5_blut_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb5_blut_r" value="unbekannt" />unbekannt</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb5_blut_wert_txt">Wert (BAK o.ä.)</label>
+          <input class="form-control" id="eb5_blut_wert_txt" name="eb5_blut_wert_txt" /><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb5_blut_mv_txt">Messverfahren</label>
+          <input class="form-control" id="eb5_blut_mv_txt" name="eb5_blut_mv_txt" /><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb5_blut_zeit_txt">Zeitpunkt der Blutentnahme</label>
+          <input class="form-control" id="eb5_blut_zeit_txt" name="eb5_blut_zeit_txt" /><br />
+        </div>
+        EB6<br />
+        <div class="form-group">
+          <label class="control-label" for="eb6_r">Lagen Anzeichen für eine Bewußtseinsstörung vor?</label>
+          <div class="radio">
+            <label><input type="radio" name="eb6_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb6_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb6_r" value="unbekannt" />unbekannt</label>
+          </div>
+          <textarea class="form-control" id="eb6_txt" name="eb6_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb6_bewusst_txt">Welche Art von Bewußtseinsstörung lag vor?</label>
+          <textarea class="form-control" id="eb6_bewusst_txt" name="eb6_bewusst_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb6_ursachen_txt">Was war die Ursache für die Bewußtseinsstörung?</label>
+          <textarea class="form-control" id="eb6_ursachen_txt" name="eb6_ursachen_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb6_krankheit_r">Lagen Anzeichen für eine Krankheit als Ursache vor?</label>
+          <div class="radio">
+            <label><input type="radio" name="eb6_krankheit_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb6_krankheit_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="eb6_krankheit_r" value="unbekannt" />unbekannt</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb6_krankheit_txt">Welche?</label>
+          <textarea class="form-control" id="eb6_krankheit_txt" name="eb6_krankheit_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="eb6_behandlung_txt">Wann und bei welchem Arzt haben deshalb Behandlungen stattgefunden?</label>
+          <textarea class="form-control" id="eb6_behandlung_txt" name="eb6_behandlung_txt" cols="40" rows="5"></textarea><br />
+        </div>
+      </fieldset>
+    </div>
+<!-- FB Behandlungsmaßnahmen / Heilverlauf / Letzter Befund -->
+    <div class="odd">
+      <fieldset>
+        <legend>FB Behandlungsmaßnahmen / Heilverlauf / Letzter Befund</legend>
+        FB1<br />
+        <div class="form-group">
+          <label class="control-label" for="fb1">Behandlungsbeginn bei Ihnen</label>
+          &nbsp;(Datum und Uhrzeit)<br />
+          <input class="form-control" id="fb1" name="fb1" /><br />
+        </div>
+        FB2<br />
+        <div class="form-group">
+          <label class="control-label" for="fb2_txt">Behandlungsmaßnahmen / Heilverlauf</label>
+          <textarea class="form-control" id="fb2_txt" name="fb2_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        FB3<br />
+        <div class="form-group">
+          <label class="control-label" for="fb3_txt">Derzeitige subjektive Beschwerden der versicherten Person</label>
+          <textarea class="form-control" id="fb3_txt" name="fb3_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        FB4<br />
+        <div class="form-group">
+          <label class="control-label" for="fb4_txt">Letzter objektiver Befund</label>
+          <textarea class="form-control" id="fb4_txt" name="fb4_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        FB5<br />
+        <div class="form-group">
+          <label class="control-label" for="fb5">Wann ist dieser Befund erhoben worden?</label>
+          &nbsp;(Datum und Uhrzeit)<br />
+          <input class="form-control" id="fb5" name="fb5" /><br />
+        </div>
+        FB6<br />
+        <div class="form-group">
+          <label class="control-label" for="fb6_txt">Ist die Behandlung abgeschlossen, ggf. wann oder wann vorraussichtlich?</label>
+          <textarea class="form-control" id="fb6_txt" name="fb6_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        FB7<br />
+        <div class="form-group">
+          <label class="control-label" for="fb7_txt">Vor- oder Weiterbehandlung? Durch wen?</label>
+          <textarea class="form-control" id="fb7_txt" name="fb7_txt" cols="40" rows="5"></textarea><br />
+        </div>
+      </fieldset>
+    </div>
+<!-- DI Diagnose -->
+    <div class="even">
+      <fieldset>
+        <legend>DI Wie lautet Ihre Diagnose?</legend>
+        <div class="form-group">
+          <textarea class="form-control" id="di_txt" name="di_txt" cols="40" rows="5"></textarea><br />
+        </div>
+      </fieldset>
+    </div>
+<!-- KM Kausalität und Mitwirkung -->
+    <div class="odd">
+      <fieldset>
+        <legend>KM Kausalität und Mitwirkung</legend>
+        KM1<br />
+        <div class="form-group">
+          <label class="control-label" for="km1_txt">Sind diese Gesundheitsschäden ausschließlich durch das geschilderte Ereignis verursacht worden?</label>
+          <textarea class="form-control" id="km1_txt" name="km1_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        KM2<br />
+        <div class="form-group">
+          <label class="control-label" for="km2_txt">Lagen zum Zeitpunkt des Unfalllereignisses Krankheiten und/ oder Gebrechen bzw. Folgen aus früheren Unfällen vor?</label><br />
+          Welche? Seit wann?<br />
+          <textarea class="form-control" id="km2_txt" name="km2_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        KM3<br />
+        <div class="form-group">
+          <label class="control-label" for="km3">Bitte bemessen Sie den unfallunabhängigen Anteil an der Gesundheitsschädigung oder deren Folgen in Prozent</label>
+          <input class="form-control" id="km3" name="km3" /><br />
+        </div>
+      </fieldset>
+    </div>
+<!-- HB Hirnbeteilung -->
+    <div class="even">
+      <fieldset>
+        <legend>HB Hirnbeteiligung</legend>
+        <div class="form-group">
+          <label class="control-label" for="hb_r">Lagen Zeichen einer Hirnbeteiligung (Kontusion, Blutung) vor?</label>
+          <div class="radio">
+            <label><input type="radio" name="hb_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="hb_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="hb_r" value="unbekannt" />unbekannt</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="hb_art_txt">Welche Art der Hirnbeteiligung?</label>
+          <textarea class="form-control" id="hb_art_txt" name="hb_art_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="hb_anzeichen_txt">Welche Anzeichen?</label>
+          <textarea class="form-control" id="hb_anzeichen_txt" name="hb_anzeichen_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="hb_ursachen_txt">Auf welche Ursachen ist die Hirnblutung ganz oder überwiegend zurückzuführen?</label>
+          <textarea class="form-control" id="hb_ursachen_txt" name="hb_ursachen_txt" cols="40" rows="5"></textarea><br />
+        </div>
+      </fieldset>
+    </div>
+<!-- PR Prognose -->
+    <div class="odd">
+      <fieldset>
+        <legend>PR Prognose</legend>
+        <div class="form-group">
+          <label class="control-label" for="pr1_r">Wird der Unfall vorraussichtlich zu einer dauernden Beeinträchtigung der körperlichen oder geistigen Leistungsfähigkeit führen?</label>
+          <div class="radio">
+            <label><input type="radio" name="pr1_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="pr1_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="pr1_r" value="unbekannt" />unbekannt</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="pr2_txt">Welche Beeinträchtigungen sind zu erwarten?</label>
+          <textarea class="form-control" id="pr2_txt" name="pr2_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="pr3">Wann kann der Invaliditätsgrad bemessen werden?</label>
+          <input class="form-control" id="pr3" name="pr3" /><br />
+        </div>
+      </fieldset>
+    </div>
+<!--SB Abschluss des Berichts -->
+    <div class="even">
+      <fieldset>
+        <legend>SB Abschluss des Berichts</legend>
+        <div class="form-group">
+          <label class="control-label" for="sb1_r">Haben Sie einer anderen weiteren privaten oder gesetzlichen Unfallversicherung, Krankenversicherung oder anderen Versicherungsgesellschaften Auskunft über diesen Unfall gegeben?</label>
+          <div class="radio">
+            <label><input type="radio" name="sb1_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="sb1_r" value="nein" />nein</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="sb1_r" value="unbekannt" />unbekannt</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="sb1_txt">Wenn ja, bitte angeben: Namen, Aktenzeichen, Anschrift:</label>
+          <textarea class="form-control" id="sb1_txt" name="sb1_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="sb2_r">Stehen der Aushändigung dieses Berichts an die verletzte Person medizinische Gründe entgegen?</label>
+          <div class="radio">
+            <label><input type="radio" name="sb2_r" value="ja" />ja</label>
+          </div>
+          <div class="radio">
+            <label><input type="radio" name="sb2_r" value="nein" />nein</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="sb3_txt">Fügen Sie bitte ggf. Arztbriefe, Entlassungsberichte bei</label>
+          <textarea class="form-control" id="sb3_txt" name="sb3_txt" cols="40" rows="5"></textarea><br />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="sb4_txt">Bemerkungen</label>
+          <textarea class="form-control" id="sb4_txt" name="sb4_txt" cols="40" rows="5"></textarea><br />
+        </div>
+      </fieldset>
+    </div>
+    <button class="btn" type="submit">PDF erstellen</button>
+  </form>
+</div>
+<br />&nbsp;<br />&nbsp;
+</body>
+</html>
